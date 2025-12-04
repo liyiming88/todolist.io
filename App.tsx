@@ -14,7 +14,7 @@ export default function App() {
   // Initialize from local storage
   useEffect(() => {
     try {
-      const savedTodos = localStorage.getItem('smart-tasker-todos');
+      const savedTodos = localStorage.getItem('dude-tasker-todos');
       if (savedTodos) {
         setTodos(JSON.parse(savedTodos));
       }
@@ -25,7 +25,7 @@ export default function App() {
 
   // Save to local storage whenever todos change
   useEffect(() => {
-    localStorage.setItem('smart-tasker-todos', JSON.stringify(todos));
+    localStorage.setItem('dude-tasker-todos', JSON.stringify(todos));
   }, [todos]);
 
   const addTodo = (text: string) => {
@@ -99,7 +99,7 @@ export default function App() {
             <CheckCircle2 className="w-8 h-8 text-white" />
           </div>
           <h1 className="text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
-            Smart Tasker
+            Dude Tasker
           </h1>
           <p className="text-lg text-slate-600 max-w-lg mx-auto">
             Stay organized and focused. Use <span className="font-semibold text-indigo-600">Auto-Plan</span> to break down complex goals instantly.
@@ -195,7 +195,7 @@ export default function App() {
         </div>
         
         <footer className="text-center text-slate-400 text-sm">
-          <p>© {new Date().getFullYear()} Smart Tasker. Built with React & Gemini.</p>
+          <p>© {new Date().getFullYear()} Dude Tasker. Built with React & Gemini.</p>
         </footer>
 
       </div>

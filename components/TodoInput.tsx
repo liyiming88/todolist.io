@@ -56,7 +56,6 @@ export const TodoInput: React.FC<TodoInputProps> = ({ onAdd, onGenerate, isGener
                 <>
                     <Button 
                         variant="ghost" 
-                        size="sm"
                         onClick={handleMagicClick}
                         className="!px-2 !py-1 text-xs"
                         title="Generate subtasks with AI"
