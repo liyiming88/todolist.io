@@ -35,6 +35,13 @@ export const generateTasksFromGoal = async (goal: string): Promise<string[]> => 
     
     return [];
   } catch (error) {
+    console.error("Error in generateTasksFromGoal:", error);
+    if (error && typeof error === 'object') {
+      console.error("Error properties:", Object.keys(error));
+      if ('message' in error) {
+        console.error("Error message:", (error as Error).message);
+      }
+    }
     console.error("Error generating tasks:", error);
     throw error;
   }
