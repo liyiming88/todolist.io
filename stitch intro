@@ -1,0 +1,19 @@
+深入技术解析：为什么 Stitch 更能保证一致性？
+1. Token 强制 vs. 视觉模仿 (Tokenization vs. Mimicry)
+Nano Banana 的逻辑： 当你让 Nano Banana 生成“个人中心”时，它会参考之前的“首页”截图。它试图通过模仿首页的像素特征（颜色、阴影）来生成新页面。但因为它是基于概率的生成（Probabilistic Generation），每一次生成都是一次“重新创作”，很容易出现幻觉（Hallucination），比如把“Fidelity Red”变成了深粉色，或者把投影（Shadow）从0px 2px变成了4px 8px。
+
+Google Stitch 的逻辑： Stitch 将 UI 视为代码（Code）。当你定义了“Institutional Minimalism”风格（如你偏好的微圆角 2px），Stitch 会将其存储为全局变量（Global Tokens）。
+
+生成新页面时，Stitch 不是在画图，而是在组装组件。它调用同一个 CardComponent，应用同一个 BorderRadiusToken。无论生成第100个页面还是第1个页面，border-radius: 2px 永远是固定的。
+
+2. 状态保持与“画布”架构 (Canvas State Awareness)
+Stitch 的 Canvas 视图： Stitch 拥有一个“上帝视角”的 Canvas。它知道页面 A 跳转到 页面 B。当你修改 Header 组件时，Stitch 是在修改引用（Reference），所有页面上的 Header 都会同步更新。
+
+Nano Banana 的单点生成： 如果你只用 Nano Banana（例如在 Gemini Advanced 对话框里），它是无状态的（Stateless）或弱状态的。你必须不断把上一张图喂给它作为参考，即便如此，它也无法理解“Header 是一个复用组件”这个概念，它只认为那是“顶部的蓝色长条”。
+
+3. 避免“语义覆盖” (Avoiding Semantic Override)
+最近的技术分析（如 r/AISEOInsider 讨论）指出，Nano Banana Pro 模型有一个被称为 "Semantic Override" (语义覆盖) 的副作用。因为它“懂”得太多，有时候它会根据页面内容自作主张。
+
+例子： 在做一个退休规划 App 时，你希望所有按钮都是“冷淡风”。但在生成一个“恭喜达成目标”的页面时，Nano Banana 可能会因为识别到“庆祝”的语义，自动把按钮改成鲜艳的橙色，破坏了整体的一致性。
+
+Stitch 通过限制 AI 的自由度（Constraint-based AI），锁死了样式规范，防止 AI “自作聪明”。
